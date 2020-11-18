@@ -1,0 +1,649 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Welcome to BrandBooster {% endblock %}
+{% block css %}
+  .nav-pills > li > a.active {
+    background-color: #ec3237 !important;
+    color: white !important;
+
+    }
+
+  
+  .icun{
+    background-color:#ec3237 !important;
+  }
+  .audiolink{
+    color: white;
+    border-radius:20px;
+    margin-top:10px;
+    margin-bottom:19px;
+    width:27px;
+  }
+  .audiolink:hover{
+    color: white;
+    border-radius:20px;
+    margin-top:10px;
+    margin-bottom:19px;
+    width:27px;
+  }
+  .test {
+    line-height: 1.7;
+  }
+  .btn-primary{
+    background-color:#ec3237;
+    color:white;
+    border-color:white;
+    }
+    .btn-primary:hover{
+    background-color:#ec3237;
+    color:white;
+    border-color:white;
+    }
+    .btn-primary:active{
+    background-color:#ec3237;
+    color:white;
+    border-color:white;
+    }
+    textarea:focus{
+      border:none;
+      border-bottom:1px solid #CDCDCD;
+    }
+    table { 
+      display: table;
+      border-collapse: separate;
+      border-spacing: 0.5px;
+      border-color: gray;
+    }
+   
+{% endblock %}
+{% block body %}
+<section id="hero">
+  <div class="hero-container">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active" style="background-image: url({{company.cover_image.url}});background-size:contain 100%;">
+          <div class="carousel-container">
+            <div class="carousel-content text-wrap">
+              <h2 class="animate__animated animate__fadeInDown">Welcome to <span>{{company.company_name}}</span></h2>
+              <p class="animate__animated animate__fadeInUp">{{company.company_short_info}}</p>
+              <a href="{{company.company_domain}}" target="_blank" class="btn-get-started scrollto animate__animated animate__fadeInUp">Know More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Portfolio Section ======= -->
+<section id="portfolio" class="portfolio">
+  <div class="container">
+    <ul class="nav nav-pills mb-3 col-md-12 nav-justified " style="margin:0;" id="pills-tab" role="tablist">
+      <li class="nav-item">
+          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Company Details</a>
+      </li>
+      {% if marketings %}
+      <li class="nav-item">
+          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Offers</a>
+      </li>
+      {% elif user.is_authenticated and request.user.email == company.user_id.email %}
+      <li class="nav-item">
+          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Offers</a>
+      </li>
+      {% endif %}
+      {% if products %}
+        <li class="nav-item ">
+            <a class="nav-link" id="pills-product-tab" data-toggle="pill" href="#pills-product" role="tab" aria-controls="pills-profile" aria-selected="false">Product Photos</a>
+        </li>
+      {% elif user.is_authenticated and request.user.email == company.user_id.email %}
+        <li class="nav-item ">
+            <a class="nav-link" id="pills-product-tab" data-toggle="pill" href="#pills-product" role="tab" aria-controls="pills-profile" aria-selected="false">Product Photos</a>
+        </li>
+      {% endif %}
+      {% if videos %}
+      <li class="nav-item">
+          <a class="nav-link" id="pills-video-tab" data-toggle="pill" href="#pills-video" role="tab" aria-controls="pills-contact" aria-selected="false">Product Videos</a>
+      </li>
+      {% elif user.is_authenticated and request.user.email == company.user_id.email %}
+      <li class="nav-item">
+          <a class="nav-link" id="pills-video-tab" data-toggle="pill" href="#pills-video" role="tab" aria-controls="pills-contact" aria-selected="false">Product Videos</a>
+      </li>
+      {% endif %}
+      {% if audios %}
+      <li class="nav-item">
+          <a class="nav-link" id="pills-audio-tab" data-toggle="pill" href="#pills-audio" role="tab" aria-controls="pills-audio" aria-selected="false">Company Audios</a>
+      </li>
+      {% elif user.is_authenticated and request.user.email == company.user_id.email %}
+      <li class="nav-item">
+          <a class="nav-link" id="pills-audio-tab" data-toggle="pill" href="#pills-audio" role="tab" aria-controls="pills-audio" aria-selected="false">Company Audios</a>
+      </li>
+      {% endif %}
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        </br></br>
+        <div class="row">
+          <div class="test col-md-4 text-left">
+            <div class="text-center col-md-6">
+            <img src="{{company.company_photo.url}}" id="companyImage" height="150px" style="max-width:300px;" alt="Company Image Not Found">
+            </div>
+            <br>
+            <table>
+              <tr>
+                <td style="width:32px;!important"><strong><i class="icofont-ui-office"></i></td>
+                <td>{{company.company_name}}</td>
+              </tr>
+              <tr>
+                <td><strong><i class="icofont-business-man"></i></td>
+                <td>{{company.company_ceo}}</td>
+              </tr>
+              <tr>
+                <td><strong><i class="icofont-smart-phone"></i></td>
+                <td>{{company.company_phone}}</td>
+              </tr>
+              {% if company.company_whatsapp %}
+              <tr>
+                <td><strong><i class="icofont-whatsapp"></i></td>
+                <td><a style="color:black;" href="https://api.whatsapp.com/send?phone={{company.company_whatsapp}}&text=Hi {{company.company_name}} I am ,{{request.user.first_name}}"
+        data-action="share/whatsapp/share" target="_blank">{{company.company_whatsapp}}</a></td>
+              </tr>
+              {% endif %}
+            {% if company.company_telephone %}
+              <tr>
+                <td><strong><i class="icofont-telephone"></i></td>
+                <td>{{company.company_telephone}}</td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td><strong><i class="icofont-email"></i></td>
+                <td>{{company.company_email}}</td>
+              </tr>
+              <tr>
+                <td><strong><i class="icofont-globe"></i></td>
+                <td><a href="{{company.company_domain}}" target="_blank" style="color:black;">{{company.company_domain}}</a></td>
+              </tr>
+              <tr>
+                <td style="vertical-align: top"><strong><i class="icofont-location-pin" style="align:top !important;"></i></td>
+                <td>{{company.company_address}}</td>
+              </tr>
+              <tr>
+                <td><strong><i class="icofont-building"></i></td>
+                <td>{{company.company_city}}, {{company.company_state}}, {{company.company_pincode}}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td class="my-1">{% for j in lst_index %}
+                  {% if j <= sum %}
+                    <img src="{% static 'assets/img/Star.png' %}" width="20px" height="20px" class="my-1"> &nbsp;
+                  {% else %}
+                    <img src="{% static 'assets/img/Star_unselect.png' %}" width="20px" height="20px" class="my-1"> &nbsp;
+                  {% endif %}
+                {% endfor %}</td>
+              </tr>
+            </table>
+            {% if user.is_authenticated and request.user.email != company.user_id.email %}
+              <table class="col-sd-12">
+                <tr>
+                {% if user_liked.like is 0 %}
+                  <td>
+                    <img src="{% static 'images/Like_Unselect.png' %}" id="likeimage" name="likeimage">
+                  </td>
+                  <td>
+                    <img src="{% static 'images/Dislike_unselect.png' %}" id="dislikeimage" name="dislikeimage">
+                  </td>
+                  {% elif user_liked.like is 1 %}
+                  <td>
+                    <img src="{% static 'images/Like.png' %}" id="likeimage" name="likeimage">
+                  </td>
+                  <td>
+                    <img src="{% static 'images/Dislike_unselect.png' %}" id="dislikeimage" name="dislikeimage">
+                  </td>
+                  {% else %}
+                  <td>
+                    <img src="{% static 'images/Like_Unselect.png' %}" id="likeimage" name="likeimage">
+                  </td>
+                  <td>
+                    <img src="{% static 'images/Dislike.png' %}" id="dislikeimage" name="dislikeimage">
+                  </td>
+                  {% endif %}
+                </tr>
+              </table>
+            {% endif %}
+            <!-- <strong><i class="icofont-ui-office"></i> &nbsp;&nbsp; {{company.company_name}}</strong><br>
+            <i class="icofont-business-man"></i> &nbsp;&nbsp; {{company.company_ceo}}<br>
+            <i class="icofont-smart-phone"></i> &nbsp;&nbsp; {{company.company_phone}} <br>
+            {% if company.company_telephone %}
+            <i class="icofont-telephone"></i> &nbsp;&nbsp; {{company.company_telephone}} <br>
+            {% endif %}
+            <i class="icofont-email"></i> &nbsp;&nbsp; {{company.company_email}}<br>
+            <i class="icofont-globe"></i> &nbsp;&nbsp; <a href="{{company.company_domain}}" style="color:black" target="_blank">{{company.company_domain}}</a><br>
+            <i class="icofont-location-pin"></i> &nbsp;&nbsp; <span class="text-wrap">{{company.company_address}} <br>
+            {% if company.company_city %}
+            <i class="icofont-building"></i> &nbsp;&nbsp; {{company.company_city}}, {{company.company_state}}, {{company.company_pincode}}</span><br>
+            {% endif %} -->
+            <!-- <div class="row mx-2" id="displayReview">
+              {% for j in lst_index %}
+                {% if j <= sum %}
+                  <img src="{% static 'assets/img/Star.png' %}" width="20px" height="20px" class="my-1"> &nbsp;
+                {% else %}
+                  <img src="{% static 'assets/img/Star_unselect.png' %}" width="20px" height="20px" class="my-1"> &nbsp;
+                {% endif %}
+              {% endfor %}
+            </div> -->
+            
+          </div>
+          <div class=" col-md-8" style="text-align:justify;width: 900px;padding-right:30px;padding-left:10px;overflow-wrap: break-word">
+            <div class="section-title"><h2>Description</h2></div> 
+            <p>{{company.company_long_info}}</p>
+          </div>
+          {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+            <div class="col-md-12 text-center">
+              <a href="{% url 'edit_company' company.company_id %}"><button name="update" class="btn btn-primary mx-2">Update</button></a>
+              <a href="{% url 'delete_company' company.company_id %}"><button name="update" class="btn btn-primary">Delete</button></a>
+              <a href="{% url 'add_company' %}"><button type="button" class="btn btn-primary mx-2 my-2">Create New Company</button></a>
+            </div>
+          {% endif %} 
+      </div>
+
+{% comment %} ############################################################################################# {% endcomment %}
+      {% if user_reviews or total_reviews or user.is_authenticated and request.user.email != company.user_id.email %}
+          <div class="section-title"><h2> Reviews </h2></div>                          
+      {% endif %}
+          {% if user.is_authenticated and request.user.email != company.user_id.email %} 
+            {% if user_reviews %}
+              {% for user_review in user_reviews %}
+              <div class="container text-center" id="editreview" style="display:none;">
+              <form method="post" action="{% url 'add_review' company.company_id %}">
+                {% csrf_token %}
+                    <div class=" mx-4 my-2 text-center">
+                      {% for n in lst_index %}
+                        {% if n <= user_review.star %}
+                          <img  src="{% static 'assets/img/Star.png' %}" id="{{n}}" onclick="changeImage({{n}})">
+                        {% else %}
+                          <img  src="{% static 'assets/img/Star_unselect.png' %}" id="{{n}}" onclick="changeImage({{n}})">
+                        {% endif %}
+                      {% endfor %}
+                      <input id="totalstar" name="totalstar" hidden value="{{user_review.star}}">
+                    </div>
+                    <div class="card-body">
+                      <input type="text" id="myText1" style="border:0px;border-bottom:1px solid #CDCDCD;"  placeholder="Describe Your Expirience...." name="review" class="col-md-12" required value="{{user_review.review}}">
+                      {% comment %} <textarea >{{user_review.review}}</textarea> {% endcomment %}
+                      <button class="btn btn-primary my-3" type="submit" style="border-radius:30px;">Submit</button>
+                    </div>
+              </form>
+            </div>
+              <div class="row col-md-12">
+                <div class="col-md-1">
+                  <img class="mx-4" src="{{request.user.profile_photo.url}}" width="60px" height="60px" style="border-radius: 30px;margin-top:10px;" >
+                </div>
+                <div class="col-md-11">
+                  <a class="float-right my-2" onclick="javascript:delReview({{user_review.review_id}})">
+                    <img src="{% static 'assets/img/Delete.png' %}" style="margin-top:5px;margin-right:5px;"></a>
+                <a class="float-right my-2 mx-2" onclick="javascript:editReview({{user_review.review_id}})">
+                    <img src="{% static 'assets/img/Edit.png' %}" style="margin-top:5px;"></a>
+                <a href="{% url 'delete_review' review_id=user_review.review_id %}">
+                    <button id="del-rev-{{user_review.review_id}}" hidden value="{{user_review.review_id}}">Delete</button>
+                </a>
+                <p class=" mx-5 text-left"><strong>{{user_review.user_id.first_name}} &nbsp;&nbsp;&nbsp;</strong>{% for j in lst_index %}
+                  {% if j <= user_review.star %}
+                  <img src="{% static 'assets/img/Star.png' %}">
+                  {% else %}
+                  <img src="{% static 'assets/img/Star_unselect.png' %}">
+                  {% endif %}
+                  {% endfor %}</p>
+                <div class="row mx-4" id="displayReview" style="margin-top: -15px;padding-left:24px;">
+                  {{user_review.date_time_modified}}
+                </div>
+                <p class=" my-3 mx-4 col-md-12 text-justify text-break" style="padding-left: 26px;" id="{{user_review.review_id}}">
+                    {{user_review.review|slice:"0:200"}}...<br></p>
+                </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="text-center">
+                <form method="post" action="{% url 'add_review' company_id=company.company_id %}">
+                  {% csrf_token %}
+                    <div class=" mx-4 my-2 text-center">
+                      {% for n in lst_index %}
+                        {% if n <= user_review.star %}
+                        <img  src="{% static 'assets/img/Star.png' %}" id="{{n}}" onclick="changeImage({{n}})">
+                        {% else %}
+                        <img  src="{% static 'assets/img/Star_unselect.png' %}" id="{{n}}" onclick="changeImage({{n}})">
+                        {% endif %}
+                      {% endfor %}
+                      {% if user_review.star %}
+                      <input id="totalstar" hidden name="totalstar" value="{{user_review.star}}">
+                      {% else %}
+                      <input id="totalstar" hidden name="totalstar" value="0">
+                      {% endif %}
+                    </div>
+                    <div class="card-body">
+                    <input type="text" id="myText" style="border:0px;border-bottom:1px solid #CDCDCD;"  name="review" placeholder="Describe Your Expirience...." class="col-md-12" required>
+                      {% comment %} <textarea id="myText" style="border:0px;border-bottom:1px solid #CDCDCD;"  name="review" rows="1" placeholder="Describe Your Expirience...." class="col-md-12" required></textarea> {% endcomment %}
+                      <textarea name="userid" class="col-md-12" hidden>{{request.user.user_id}}</textarea>
+                      <button class="btn btn-primary my-3" type="submit" style="border-radius:30px;">Submit</button>
+                    </div>
+                </form>
+              </div>
+            {% endif %}
+            {% for total_review in total_reviews %}
+          <div class="row col-md-12" >
+            <div class="col-md-1">
+              <img class="mx-4" src="{{total_review.user_id.profile_photo.url}}" width="60px" height="60px" style="border-radius: 30px;margin-top:10px;" >
+            </div>
+            <div class="col-md-11">
+            <p class=" mx-5 text-left"><strong>{{total_review.user_id.first_name}} &nbsp;&nbsp;&nbsp;</strong>{% for j in lst_index %}
+              {% if j <= total_review.star %}
+              <img src="{% static 'assets/img/Star.png' %}">
+              {% else %}
+              <img src="{% static 'assets/img/Star_unselect.png' %}">
+              {% endif %}
+              {% endfor %}</p>
+            <div class="row mx-4" id="displayReview" style="margin-top: -15px;padding-left:23px;">
+              {{total_review.date_time_modified}}
+            </div>
+            <p class=" my-3 mx-4 col-md-12 text-justify text-break" style="padding-left: 24px;" id="{{total_review.review_id}}">
+               {{total_review.review|slice:"0:200"}}...<br></p>
+            </div>
+          </div>
+          {% endfor %}
+            
+          {% else %}
+          
+              {% for total_review in total_reviews %}
+          <div class="row col-md-12">
+            <div class="col-md-1">
+              <img class="mx-4" src="{{total_review.user_id.profile_photo.url}}" width="60px" height="60px" style="border-radius: 30px;margin-top:10px;" >
+            </div>
+            <div class="col-md-11">
+            <p class=" mx-5 text-left"><strong>{{total_review.user_id.first_name}} &nbsp;&nbsp;&nbsp;</strong>{% for j in lst_index %}
+              {% if j <= total_review.star %}
+              <img src="{% static 'assets/img/Star.png' %}">
+              {% else %}
+              <img src="{% static 'assets/img/Star_unselect.png' %}">
+              {% endif %}
+              {% endfor %}</p>
+            <div class="row mx-4" id="displayReview" style="margin-top: -15px;padding-left:24px;">
+              {{total_review.date_time_modified}}
+            </div>
+            <p class=" my-3 mx-5 col-md-12 text-justify text-break" style="padding-left: 0px;" id="{{total_review.review_id}}">
+              {{total_review.review|slice:"0:200"}}...<br></p>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+
+  </div>
+{% comment %} ######################################################################################### {% endcomment %}
+
+
+    <div class="tab-pane fade" id="pills-product" role="tabpanel" aria-labelledby="pills-product-tab">
+      <section id="team" class="team">
+        <div class="container">
+          <div class="row">
+            {% if products %}
+              {% for i in products %}
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                  <div class="member" style="width: 247.5px !important;">
+                    <div class="member-img text-center">
+                      <img src="{{i.company_prd_image.url}}" style="height: 200px !important;" alt="">
+                      <div class="social">
+                        {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+                        <a class="icun" href="{% url 'delete_product_photo' i.company_product_photos_id %}"><i class="icofont-ui-delete"></i></a>
+                        {% endif %}
+                        <a href="{{i.company_prd_image.url}}" data-gall="portfolioGallery1" class="venobox preview-link">
+                        <i class="icofont-eye-alt"></i></a>
+                      </div>
+                    </div>
+                    <div class="member-info">
+                      <h4>{{i.image_name}}</h4>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %} 
+            {% else %}
+              <p class="col-md-12 text-center">No Product Photo Exist.</p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+        <a href="{% url 'add_product_photo' company.company_id %}"> 
+          <button class="btn btn-primary col-md-12" >Add Photo</button>
+        </a>
+      {% endif %}
+    </div>
+  
+    <div class="tab-pane fade" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
+      <section id="team" class="team">
+        <div class="container">
+          <div class="row">
+            {% if videos %}
+              {% for i in videos %}
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                  <div class="member">
+                    <div class="member-img">
+                      <iframe height="200px" allowfullscreen="true" src="https://www.youtube.com/embed/{{ i.video_link }}" class="img-fluid" style="margin:5px;"></iframe>
+                    </div>
+                    <div class="member-info">
+                      <div class="social">
+                        {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+                          <a class="icun" href="{% url 'delete_video' i.company_videos_id %}"><i class="icofont-ui-delete"></i></a>
+                        {% endif %}
+                      </div>
+                      <h4>{{i.video_name}}</h4>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %} 
+            {% else %}
+              <p class="col-md-12 text-center">No Video Exist.</p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+        <a href="{% url 'add_video' company.company_id %}">
+          <button class="btn btn-primary col-md-12" >Add Video</button>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <section id="team" class="team">
+        <div class="container">
+          <div class="row">
+            {% if marketings %}
+              {% for i in marketings %}
+                <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                  <div class="member" style="width: 247.5px !important;">
+                    <div class="member-img text-center">
+                      <img src="{{i.company_mrk_image.url}}" style="height: 200px !important;" alt="">
+                      <div class="social">
+                        {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+                          <a class="icun" href="{% url 'delete_marketing_photo' i.company_Marketing_Photos_id %}"><i class="icofont-ui-delete"></i></a>
+                        {% endif %}
+                        <a  href="{{i.company_mrk_image.url}}" data-gall="portfolioGallery" class="venobox preview-link">
+                        <i class="icofont-eye-alt"></i></a>
+                      </div>
+                    </div>
+                    <div class="member-info">
+                      <h4>{{i.image_name}}</h4>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %} 
+            {% else %}
+              <p class="col-md-12 text-center">No Offers Photo Exist.</p>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+        <a href="{% url 'add_marketing_photo' company.company_id %}"> 
+          <button class="btn btn-primary col-md-12">Add Offers Photo</button>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="tab-pane fade" id="pills-audio" role="tabpanel" aria-labelledby="pills-audio-tab">
+      <section id="team" class="team">
+        <div class="container">
+          {% if audios %}
+            {% for i in audios %}
+              <div class="row">
+                <p class="col-md-6 my-3">{{i.audio_name}}</p>
+                <audio controls class="col-md-5 text-right">
+                  <source src="{{i.audio_file.url}}" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+                {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+                  <a class="icun text-center audiolink" href="{% url 'delete_audio' i.pk %}"><i class="icofont-ui-delete"></i></a>
+                {% endif %}
+              </div>
+              <hr>
+            {% endfor %}
+          {% else %}
+            <p class="col-md-12 text-center">No Audio Exist.</p>
+          {% endif %}
+        </div>
+      </section>
+      {%  if user.is_authenticated  and request.user.email == company.user_id.email %}
+        <a href="{% url 'add_audio' company.company_id %}">
+        <button class="btn btn-primary col-md-12">Add Audio</button></a>
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+
+{% endblock %}
+{% block js %}
+<script>
+    function delCompany(data){
+       ans= confirm('Are you sure you want to DELETE THE COMPANY?');
+       if(ans){
+            document.getElementById(data).click();
+            alert("Company Deleted Successfully");
+       }
+    }
+    function delPhoto(data){
+       ans= confirm('Are you sure you want to DELETE the Photo?');
+       if(ans){
+            document.getElementById("del-photo-" + data).click();
+       }
+    }
+     function delVideo(data){
+       ans= confirm('Are you sure you want to DELETE the Video?');
+       if(ans){
+            document.getElementById("del-vid-" + data).click();
+    
+       }
+    }
+    function delMktPhoto(data){
+       ans= confirm('Are you sure you want to DELETE the Marketing Photo?');
+       if(ans){
+            document.getElementById("del-mkt-" + data).click();
+       }
+    }
+    
+    {% comment %} REVIEW FUNCTIONS {% endcomment %}
+    function editReview(data) {
+        document.getElementById("editreview").style.display = "block";
+    }
+    function delReview(data) {
+    ans = confirm('Are you sure you want to DELETE this Review ?');
+    if (ans) {
+        document.getElementById("del-rev-" + data).click();
+    }
+    }
+    function changeImage(para) {
+    for (i = 1; i < 6; i++) {
+        var image = document.getElementById(i);
+        if (i > para) {
+            image.src = "/static/assets/img/Star_unselect.png";
+        } else {
+            image.src = "/static/assets/img/Star.png";
+            document.getElementById("totalstar").value = i;
+        }
+    }
+    }
+    
+    {% comment %} FOR LIKE OF COMPANY {% endcomment %}
+    $('#likeimage').click(function(){
+       var image = document.getElementById('likeimage');
+       var image1 = document.getElementById('dislikeimage');
+       if (image.src.match("Like.png")){
+           $.ajax(
+            {
+                type:"GET",   
+                url: "{% url 'likeImageZero' company_id=company.company_id %}",
+                data:{
+                    pk : {{company.company_id}},
+                },
+                success: function( data ) 
+                {
+                    image.src = "{% static 'images/Like_Unselect.png' %}";
+                }
+            });
+       }
+       else{
+            $.ajax(
+            {
+                type:"GET",   
+                url: "{% url 'likeImageOne' company_id=company.company_id %}",
+                data:{
+                    pk : {{company.company_id}},
+                },
+                success: function( data ) 
+                {
+                    image1.src = "{% static 'images/Dislike_unselect.png' %}";
+                    image.src = "{% static 'images/Like.png' %}";
+                }
+            });
+       }
+    
+    });
+    
+    $('#dislikeimage').click(function(){
+       var image = document.getElementById('dislikeimage');
+       var image1 = document.getElementById('likeimage');
+    
+       if (image.src.match("Dislike.png")){
+           $.ajax(
+            {
+                type:"GET",   
+                url: "{% url 'likeImageZero' company_id=company.company_id %}",
+                data:{
+                    pk : {{company.company_id}},
+                },
+                success: function( data ) 
+                {
+                    image.src = "{% static 'images/Dislike_unselect.png' %}";
+    
+                }
+            });
+       }
+       else{
+           $.ajax(
+            {
+                type:"GET",   
+                url: "{% url 'likeImageTwo' company_id=company.company_id %}",
+                data:{
+                    pk : {{company.company_id}},
+                },
+                success: function( data ) 
+                {
+                    image1.src = "{% static 'images/Like_Unselect.png' %}";
+                    image.src = "{% static 'images/Dislike.png' %}";
+                }
+            });
+       } 
+    });
+    
+</script>
+<script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Add New Audio {% endblock %}
+{% block css %}{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+    <div class="form-title">
+      <h4 style="text-align:center;">-: Add New Audio :-</h4>
+    </div>
+    <div class="form-body">
+      {% if messages %}
+        <ul class="messages my-5 text-center">
+          {% for message in messages %}
+            <hr>
+            <div class="alert {{ message.tags }}" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <form action="{% url 'add_audio' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group col-md-12">
+          <label for="sel1">Select Company:</label>
+          <select onchange="myColor()" class="form-control" id="sel1" name="sel1">
+            <option value="select" >Select</option>
+            {% for i in x %}
+              <option value="{{i.company_id}}">{{i.company_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputVName">Audio Name:</label>
+          <input type="text" class="form-control" id="inputVName" name="audioname" required/>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="companyaudio">Company Audio:</label>
+          <input id="companyaudio" name="companyaudio" class="file_multiv_ideo" accept="audio/*" type="file" required/>
+        </div>
+       
+        <div class="form-group col-md-12">
+          <button type="submit" id="submit" class="btn btn-primary" style="margin-left:13px;">Add Audio</button>
+          <button type="reset" class="btn btn-danger" style="margin-left:13px;">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

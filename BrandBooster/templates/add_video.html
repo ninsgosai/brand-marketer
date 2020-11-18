@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Add Video {% endblock %}
+{% block body %}
+{% if messages %}
+  <div class="container" style="min-height:678px;margin-top:-10px;">
+{% else %}
+  <div class="container" style="min-height:678px;margin-top:-40px;">
+{% endif %}
+    <div class="row align-items-center pt-5">
+      <div class="col-12 hero-texte pt-5">
+        <div class="section-title"><h2>Add Video</h2></div>
+        <center> 
+          <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row col-md-12">
+              <input type="text" class="form-control" id="video_name" required name="video_name"
+                placeholder="video name">
+            </div>
+            <div class="form-row col-md-12 my-2">
+              <input type="url" class="form-control" required id="video_url" name="video_url"
+                placeholder="video URL">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary text-center" >Add Video</button>
+              <a href="{% url 'products' company_id.slug %}"> <button type="button" class="btn btn-primary text-center">Go back</button></a>
+            </div>
+          </form>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'admin/basic.html' %}
+{% block title %} Edit Company {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+    <div class="form-title">
+      <h4 style="text-align:center;">-: Edit Company :-</h4>
+    </div>
+    <div class="form-body">
+      {% if messages %}
+        <ul class="messages my-5 text-center">
+          {% for message in messages %}
+            <hr>
+            <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <form action="{% url 'edit_company_profile' companydetail.company_id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="inputVName">Company Name</label>
+            <input type="text" class="form-control" id="inputVName" value="{{companydetail.company_name }}" name="companyname" required/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="inputVName">Company CEO</label>
+            <input type="text" class="form-control" id="inputVCeo" value="{{companydetail.company_ceo }}" name="companyceo" required/>
+          </div>
+        </div>
+
+        <div class="form-group col-md-12">
+          <label for="inputVName">Company Short Info</label>
+          <input type="text" class="form-control" id="inputCInfo1" value="{{companydetail.company_short_info}}" name="companyinfo1" required/>
+        </div>
+        <div class="form-group col-md-12 ">
+          <label for="inputVName">Company Long Info</label>
+          <input type="text" class="form-control" id="inputCInfo2" value="{{companydetail.company_long_info}}" name="companyinfo2" required/>
+        </div>
+         <div class="form-row col-md-12">
+          <div class="form-group">
+            <label for="inputMobile">Company Whatsapp Number</label>
+            <input type="tel" class="form-control" id="company_whatsapp" name="company_whatsapp" id="company_whatsapp" value="{{companydetail.company_whatsapp}}"/>
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputVmobile">Company Mobile Number</label>
+          <input type="tel" class="form-control" id="companymobilenumber" name="companymobilenumber" 
+             value="{{companydetail.company_phone}}" required/>
+        </div>
+        <div class="form-group col-md-12 ">
+          <label for="inputVName">Company Domain</label>
+          <input type="text" class="form-control" id="inputDom" value="{{companydetail.company_domain}}" name="companydom" required/>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputEmail">Company Email</label>
+          <input type="email" class="form-control" id="inputEmail" value="{{companydetail.company_email}}" name="companyemail" required/>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <p for="fileUpload1"><b>Select Cover Photo</b></p>
+            <input id="fileUpload1" name="coverimage"
+            class="file_multi_video vendor_logo_hide" type="file" accept="image/*"/>
+          </div>
+          <div id="image-holder1" class="col-md-6 img-responsive ">
+            <img src="{{companydetail.cover_image.url}}" class="col-md-6 img-responsive" >
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <p for="fileUpload"><b>Select Company Photo</b></p>
+            <input id="fileUpload" name="companyimage"
+            class="file_multi_video vendor_logo_hide" type="file" accept="image/*"/>
+          </div>
+          <div id="image-holder" class="col-md-6 img-responsive my-1">
+            <img src="{{companydetail.company_photo.url}}" class="col-md-6 img-responsive" style="margin-top:10px;" >
+          </div>
+        </div>
+        <div class="form-group  col-md-12">
+          <button type="submit" class="btn btn-primary" style="margin-left:13px;">Update Company</button>
+          <button type="reset" class="btn btn-danger" style="margin-left:13px;">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br><br><br><br><br><br>
+</div>
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+  $(document).ready(function() {
+    
+    $('#fileUpload').change(function() {
+      if ($("#fileUpload").val().length = 0) {
+        $("#fileUpload").after("<span class='file_placeholder'>{{companyinfo.company_photo.url}}</span>");
+      }
+    });
+    $("#fileUpload").on('change', function() {
+      var countFiles = $(this)[0].files.length;
+      var imgPath = $(this)[0].value;
+      var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+      var image_holder = $("#image-holder");
+      image_holder.empty();
+      if (extn == "gif" || extn == "mp4" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+        if (typeof(FileReader) != "undefined") {
+          //loop for each file selected for uploaded.
+          for (var i = 0; i < countFiles; i++)
+          {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $("<img />", {
+                "src": e.target.result,
+                "class": "col-md-6 img-responsive"
+              }).appendTo(image_holder);
+            }
+            image_holder.show();
+            reader.readAsDataURL($(this)[0].files[i]);
+          }
+        } else {
+          alert("This browser does not support FileReader.");
+        }
+      } else {
+        alert("Pls select only images");
+      }
+    });
+    $('#fileUpload1').change(function() {
+      if ($("#fileUpload1").val().length = 0) {
+        $("#fileUpload1").after("<span class='file_placeholder'>{{companyinfo.cover_image.url}}</span>");
+      }
+    });
+    $("#fileUpload1").on('change', function() {
+      var countFiles = $(this)[0].files.length;
+      var imgPath = $(this)[0].value;
+      var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+      var image_holder = $("#image-holder1");
+      image_holder.empty();
+      if (extn == "gif" || extn == "mp4" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+        if (typeof(FileReader) != "undefined") {
+          //loop for each file selected for uploaded.
+          for (var i = 0; i < countFiles; i++)
+          {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $("<img />", {
+                "src": e.target.result,
+                "class": "col-md-6 img-responsive"
+              }).appendTo(image_holder);
+            }
+            image_holder.show();
+            reader.readAsDataURL($(this)[0].files[i]);
+          }
+        } else {
+          alert("This browser does not support FileReader.");
+        }
+      } else {
+        alert("Pls select only images");
+      }
+    });
+  });
+  var input = document.querySelector("#company_whatsapp");
+    window.intlTelInput(input, {
+      utilsScript: "{% static 'build1/js/utils.js' %}",
+    });
+
+        var input = document.querySelector("#company_whatsapp");
+    window.intlTelInput(input, {
+      utilsScript: "{% static 'build1/js/utils.js' %}",
+    });
+    var input = document.querySelector("#companymobilenumber");
+    window.intlTelInput(input, {
+      utilsScript: "{% static 'build1/js/utils.js' %}",
+    });
+</script>
+{% endblock %}
+

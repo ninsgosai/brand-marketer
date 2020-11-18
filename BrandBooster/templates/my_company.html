@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Welcome to BrandBooster {% endblock %}
+{% block css %}
+  .pagination > li > a, .pagination > li > span{
+      color:#ec3237; !Important;   
+  }
+  .pagination > li.active > a, .pagination > li > span{
+      background-color:#ec3237; !Important;   
+      color:white !important;    
+  }
+  .page-item.active .page-link{
+      border-color: white !important;
+  }
+  .btn-primary{
+      color: #fff;
+      background-color: #ec3237;
+      border-color:white;
+  }
+  .btn-primary:hover{
+      color: white;
+      background-color: white;
+      border-color:black;
+  }
+  .btn-primary:active{
+      color: white;
+      background-color: #ec3237;
+      border-color:black;
+  }
+  .btn.btn-primary{
+    background:#ec3237; !important;
+  }
+  input:focus{
+    outline: none;
+  }
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+{% endblock %}
+{% block body %}
+  <main id="main">
+    <section id="team" class="team">
+      <div class="container" style="min-height:480px;">
+      
+        <div class="section-title">
+          <h2>My Companies</h2>
+        </div>
+        <div class="row">
+          {% if companies %}
+          {% for company in companies %}
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              <a href="{% url 'products' company.slug %}">
+                <div class="member" style="width: 247.5px !important;">
+                  <div class="member-img text-center">
+                    <img src="{{company.company_photo.url}}" class="img-fluid" style="height: 200px !important;" alt="No company image">
+                  </div>
+                  <div class="member-info">
+                    <h4>{{ company.company_name }}</h4>
+                    <span>{{ company.company_short_info|slice:"0:25" }}...</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+          {% else %}
+            <div class="col-md-12"><p class="text-center">Company Not Found</p></div>
+          {% endif %}
+      </div>
+          {% if companies.has_other_pages %}
+          <nav aria-label="...">
+            <ul class="pagination">
+              {% if companies.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ companies.previous_page_number }}" >&laquo;</a></li>
+              {% else %}
+                <li class="page-item  disabled"><span class="page-link" style="background-color:white !important;color:#ec3237 !important;">&laquo;</span></li>
+              {% endif %}
+              {% for i in companies.paginator.page_range %}
+                {% if companies.number == i %}
+                  <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if companies.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ companies.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link" style="background-color:white !important;color:#ec3237 !important;">&raquo;</span></li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      <div class="col-md-12 text-center">
+        <a href="{% url 'add_company' %}"><button type="button" class="btn btn-primary mx-2 my-2">Create New Company</button></a>
+      </div>
+    </section>
+  </main>
+{% endblock %}

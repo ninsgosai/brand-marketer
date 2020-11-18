@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    {% load widget_tweaks %}
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>{% block title %}{% endblock %}</title>
+    <meta content="" name="descriptison">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{% static 'images/logo.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+                        <script async src="https://static.addtoany.com/menu/page.js"></script>
+    
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'build1/css/intlTelInput.css' %}">
+    <link rel="stylesheet" href="{% static 'build1/css/demo.css' %}">
+    
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .page-item.active .page-link{
+            border-color: white;
+        }
+        .btn-primary{
+            color: #fff;
+            background-color: #ec3237;
+        }
+        @import url(https://fonts.googleapis.com/css?family=Roboto);
+            /****** LOGIN MODAL ******/
+        
+        .loginmodal-container {
+            padding: 30px;
+            max-width: 350px;
+            width: 100% !important;
+            background-color: #F7F7F7;
+            margin: 0 auto;
+            border-radius: 2px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            font-family: roboto;
+        }
+
+        body,h1,h2,h3,h4,h5,h6,p,a {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .loginmodal-container h1 {
+            text-align: center;
+            font-size: 1.8em;
+            font-family: roboto;
+        }
+        
+        .loginmodal-container input[type=submit] {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .loginmodal-container input[type=text],
+        input[type=password] {
+            height: 44px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            -webkit-appearance: none;
+            background: #ec3237;
+            border: 1px solid #d9d9d9;
+            border-top: 1px solid #c0c0c0;
+            /* border-radius: 2px; */
+            padding: 0 8px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        
+        .loginmodal-container input[type=text]:hover,
+        input[type=password]:hover {
+            border: 1px solid #b9b9b9;
+            border-top: 1px solid #a0a0a0;
+            -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loginmodal {
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            height: 36px;
+            padding: 8 8px;
+            /* border-radius: 3px; */
+            /* -webkit-user-select: none;
+            user-select: none; */
+        }
+        
+        .loginmodal-submit {
+            /* border: 1px solid #3079ed; */
+            border: 0px;
+            color: #fff;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+            background-color: #4d90fe;
+            padding: 17px 0px;
+            font-family: roboto;
+            font-size: 14px;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+        }
+        
+        .loginmodal-submit:hover {
+            /* border: 1px solid #2f5bb7; */
+            border: 0px;
+            text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+            background-color: #357ae8;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+        }
+        
+        .loginmodal-container a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            text-align: center;
+            display: inline-block;
+            opacity: 0.9;
+            transition: opacity ease 0.99s;
+        }
+        
+        .login-btn {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .button {
+            line-height: 55px;
+            padding: 0 30px;
+            background: #004a80;
+            color: #fff;
+            display: inline-block;
+            font-family: roboto;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        .button:hover,
+        .button:visited {
+            background: #006cba;
+            color: #fff;
+        }
+        
+        .modal-open {
+            overflow: visible;
+        }
+        .btn-primary{
+        background-color:#ec3237;
+        color:white;
+        border-color:white;
+        }
+        .btn-primary:hover{
+        background-color:#ec3237;
+        color:white;
+        border-color:white;
+        }
+        .btn-primary:active{
+        background-color:#ec3237;
+        color:white;
+        border-color:white;
+        }
+        .btn-primary:active, 
+        .btn-primary:focus 
+        {
+            border:0px;
+            color:#00c;
+        }
+        .modal-open,
+        .modal-open .navbar-fixed-top,
+        .modal-open .navbar-fixed-bottom {
+            padding-right: 0px!important;
+        }
+        .navbar-nav .dropdown-menu {
+            position: absolute;
+            float: none;
+        }
+        .page-item.active .page-link{
+            background-color:red;
+        }
+
+        {% comment %} today {% endcomment %}
+        .btn-primary.focus, .btn-primary:focus {
+        color: #fff;
+        background-color: red !important;
+        border-color: red !important;
+        box-shadow: unset !important;
+        }
+        .btn.focus, .btn:focus{
+            border-color:white !important;
+        }
+        .page-link:focus
+        {
+            box-shadow:unset !important;
+        }
+        .dropdown-item.active, .dropdown-item:active{
+            background-color :unset;
+            color:unset;
+            border-color:unset;
+        }
+        .iti--allow-dropdown{
+            width:100%;
+        }
+        .vbox-close{
+               margin-top: 16px;
+    margin-right: 61px;
+        font-size: 39px;
+        }
+    {% block css %} {% endblock %}
+    </style>
+    <!-- =======================================================
+    * Template Name: Alstar - v2.1.0
+    * Template URL: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+<!--Navbar -->
+<nav class="mb-1 navbar  sticky-top navbar-expand-md navbar-dark info-color" style="background-color:#EC3237;">
+  <a class="navbar-brand " style="padding-left:10%;" href="/"><img src="{% static 'images/Layer2.png' %}" height="60px" id="logoModel">
+  </a>
+  {% comment %} <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> {% endcomment %}
+  <div class="navbar-collapse" id="navbarSupportedContent-4" style="margin-top:10px !important;">
+    <ul class="navbar-nav ml-auto" style="padding-right:10%;">
+      {% if user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link col-sd-4" href="#">Welcome {{request.user.first_name}}, 
+        </a>
+      </li>
+      <li class="nav-item dropdown mx-5">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <img src="{{request.user.profile_photo.url}}" width="45px" height="45px;" style="border-radius:25px;margin-top:-10px;" class="img-responsive">
+        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+          <a class="dropdown-item" href="{% url 'my_profile' %}" style="margin-top:-30px;">My account</a>
+          <a class="dropdown-item" href="{% url 'my_company' %}">My Companies</a>
+          {% if user.login_type == 0 %}
+          <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
+          {% endif %}
+          <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+        </div>
+        {% elif form and forml %}
+            <li><a href="#services" class="btn btn-primary" style="color:white;border-color:#CDCDCD !important;" data-toggle="modal" data-target="#myModal">Login/Register</a></li>
+        {% endif %}
+      </li>
+    </ul>
+  </div>
+</nav>
+<!--/.Navbar -->
+
+    <!-- Model  -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col-md-4 col-sd-12" style="background-color: #ec3237;">
+                        <div style="margin-left:30px;margin-right:30px;">
+                            <center>
+                                <img src="{% static 'images/Logo_white.png' %}" 
+                                style="margin-top: 70px;border-radius:65px;" id="logoModel" width="130px" height="130px">
+                                <h3 style="margin-top: 20px;margin-bottom: 20px;">LOGIN</h3>
+                            </center>
+                            <form action="{% url 'home' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" value="l" name='register'>
+                                <div class="form-group">{{ forml.email }}</div>
+                                <div class="form-group">{{ forml.password }}</div>
+                                <div class="form-group">
+                                    {% for key,values in forml.errors.get_json_data.items %}
+                                        {% for value in values %}
+                                            <p style="color:#212529;">*{{value.message}}<br/></p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                                <div class="form-group">
+                                    <a href="{% url 'password_reset' %}" 
+                                    style="padding:5px;float: right; text-decoration: none;color: white;">Forgot Password ?</a>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="form-group">
+                                    <a href="#"><button type="submit"  class="btn btn-danger main" style="padding:5px;margin-bottom:20px;background-color:#212529;border-radius: 0px;width: 100%;height:55px;"><b>LOGIN</b></button></a>
+                                </div>
+                                <center>
+                                {% load socialaccount %}
+
+                                    <a href="{% provider_login_url 'google' %}"><img src="{% static 'images/Google_2.png' %}" style="width: 50px;height: 50px;margin-bottom: 20px;" alt="Google Login"></a>
+                                </center>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sd-12" style="background-color: white;color: #212529;">
+                        <center>
+                            <h4 style="color: #212529;margin-top: 80px;">CREATE ACCOUNT</h4>
+                            <br/>            
+                                    {% comment %} <a href="{% provider_login_url 'google' %}"><img src="{% static 'images/Google_2.png' %}" style="width: 50px;height: 50px;margin-bottom: 20px;" alt="Google Login"></a> {% endcomment %}
+                            <a href="{% provider_login_url 'google' %}"><img src="{% static 'images/Google_2.png' %}" style="width: 50px;height: 50px;margin-bottom: 20px;" alt="Google Login"></a>
+                        </center>
+                        <br/>
+                        <form action="{% url 'home' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="r" name='register'>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">{{ form.first_name  }}</div>
+                                <div class="form-group col-md-6">{{ form.last_name  }}</div>
+                            </div>
+                            <div class="form-group">{{ form.email }}</div>
+                            <div class="form-group">{{ form.mobile_number  }}</div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">{{ form.password1  }}</div>
+                                <div class="form-group col-md-6">{{ form.password2  }}<br/></div>
+                                Note : password should be not start with firstname or last name email or number & minimum have 8 char
+                            </div>
+                            <div class="form-group">
+                                {% for key,values in form.errors.get_json_data.items %}
+                                    {% for value in values %}
+                                        <p style="color:#ec3237;">*{{value.message}}<br/></p>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-danger main" style="padding:5px;margin-bottom:20px;background-color:#ec3237;width: 100%;height: 55px;border-radius:0px;"><b>REGISTER</b></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Model  -->
+    {% if messages %}
+  {% for message in messages %}
+    {% if forloop.counter == 1 %}
+        <div class="alert {{ message.tags }} text-center" style="margin-top:-5px;width:100%;border-radius:0px;" role="alert">
+            {{message}}
+        </div>
+    {% else %}
+        <div hidden class="alert {{ message.tags }} text-center" style="margin-top:-5px;width:100%;border-radius:0px;" role="alert">
+            {{message}}
+        </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+<div style="margin-top:23px;">
+    {% block body %} {% endblock %}
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" style="background-color:#ec3237;">
+
+        <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>BrandBooster</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/alstar-free-parallax-bootstrap-template/ -->
+            Designed by <a href="https://lucsoninfotech.com/" style="color:white;">Lucson Infotech</a>
+        </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+ 
+
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'build1/js/intlTelInput.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+    {% comment %}
+  <script>
+  </script>
+  {% endcomment %}
+  <script>
+   var input = document.querySelector("#id_mobile_number");
+    window.intlTelInput(input, {
+      utilsScript: "{% static 'build1/js/utils.js' %}",
+    });
+  </script>
+  {% block js %} {% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Account Details {% endblock %}
+{% block css %}
+    /*Profile Pic Start*/
+    .picture-container{
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    }
+    .picture{
+    width: 96px;
+    height: 146px !important;
+    background-color: #999999;
+    border: 4px solid #CCCCCC;
+    color: #FFFFFF;
+    margin: 0px 0px;
+    border-radius:100%;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    }
+    .picture:hover{
+    border-color: #2ca8ff;
+    }
+    .content.ct-wizard-green .picture:hover{
+    border-color: #05ae0e;
+    }
+    .content.ct-wizard-blue .picture:hover{
+    border-color: #3472f7;
+    }
+    .content.ct-wizard-orange .picture:hover{
+    border-color: #ff9500;
+    }
+    .content.ct-wizard-red .picture:hover{
+    border-color: #ff3b30;
+    }
+    .picture input[type="file"] {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    }
+
+    .picture-src{
+    width: 100%;
+    }
+{% endblock %}
+{% block body %}
+  <div class="container text-center" style="min-height:678px;margin-top:-40px;">
+  {% if messages %}
+    <div class="row align-items-center pt-4">
+      <div class="col-12 hero-texte pt-4">
+    {% else %}
+    <div class="row align-items-center pt-4">
+      <div class="col-12 hero-texte pt-4">
+    {% endif %}
+        <div class="section-title"><h2>My Profile</h2></div>
+          <div class="col-md-12 align-items-stretch float-center">
+            <div class="member">
+              <div class="member-img">
+                <img src="{{request.user.profile_photo.url}}" class="img-fluid" style="height: 200px !important;" alt="No company image">
+              </div>
+            </div>
+          </div>
+          <br/><br/>
+          <div class="form-group">
+            Name : <label>{{request.user.first_name}} {{request.user.last_name}}</label><br/>
+            Email : <label>{{request.user.email}}</label><br/>
+            Mobile : <label>{{request.user.mobile_number}}</label>
+          </div>
+          <div class="form-group">
+            <a href="{% url 'edit_profile' %}"> <button type="submit" class="btn btn-primary text-center">Update Profile</button></a>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block js %}
+<script>
+$(document).ready(function(){
+    $("#profile_photo").change(function(){
+        readURL(this);
+        });
+});
+function readURL(input) {
+if (input.files && input.files[0]) {
+var reader = new FileReader();
+
+reader.onload = function (e) {
+$('#wizardPicturePreview').attr('src', e.target.result).fadeIn('slow');
+}
+reader.readAsDataURL(input.files[0]);
+}
+}
+
+</script>
+{% endblock %}
+

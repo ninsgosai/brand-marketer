@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <link href="{% static 'assets/css/style1.css' %}" media='all' rel='stylesheet' type='text/css'/>
+    <img src="{% static 'assets/img/bg.jpg' %}" rel="stylesheet" width="100%">
+</head>
+<body>
+
+<form action="{% url 'loginadmin' %}" method="POST">
+    {% csrf_token %}
+    <div class="login-box">
+        <h1>Login</h1>
+        <div class="textbox">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="Username" name="Username">
+        </div>
+
+        <div class="textbox">
+            <i class="fas fa-lock"></i>
+            <input type="password" placeholder="Password" name="Password">
+        </div>
+    {% if messages %}
+          <ul class="messages my-5 text-center">
+            {% for message in messages %}
+              <hr>
+              <div class="alert {{ message.tags }}" role="alert">
+          {{ message }}
+        </div>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <input href="" type="submit" class="btn" value="Login">
+    </div>
+
+</form>
+</body>
+</html>

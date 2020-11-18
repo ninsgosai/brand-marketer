@@ -1,0 +1,35 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Edit Video {% endblock %}
+{% block css %}{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+    <div class="form-title">
+      <h4 style="text-align:center;">-: Edit Video :-</h4>
+    </div>
+    <div class="form-body">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group col-md-12">
+          <p for="fileUpload"><b>Video name:</b></p>
+          <input id="fileUpload" name="videoname" class="form-control" type="text" value="{{x.video_name}}" required/>
+        </div>
+        <div class="form-group col-md-12">
+          <p for="imgFile"><b>Video link:</b></p>
+          <input type="text" name="videolink" id="imgFile" class="form-control"  value="{{x.video_link}}" required/>
+        </div>
+        <div class="form-group col-md-12">
+          <button type="submit" class="btn btn-primary" >Update Video</button>
+          <button type="reset" class="btn btn-danger" >Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+{% endblock %}

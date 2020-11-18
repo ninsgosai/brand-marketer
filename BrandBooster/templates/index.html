@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Welcome to BrandBooster {% endblock %}
+{% block css %}
+  .pagination > li > a, .pagination > li > span{
+      color:#ec3237; !Important;   
+  }
+  .pagination > li.active > a, .pagination > li > span{
+      background-color:#ec3237; !Important;   
+      color:white !important;    
+  }
+  .page-item.active .page-link{
+      border-color: white !important;
+  }
+  .btn-primary{
+      color: #fff;
+      background-color: #ec3237;
+      border-color:white;
+  }
+  .btn-primary:hover{
+      color: white;
+      background-color: white;
+      border-color:black;
+  }
+  .btn-primary:active{
+      color: white;
+      background-color: #ec3237;
+      border-color:black;
+  }
+  .btn.btn-primary{
+    background:#ec3237; !important;
+  }
+  input:focus{
+    outline: none;
+  }
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+{% endblock %}
+{% block body %}
+<section id="hero" {% if messages %} style="" {% endif %}>
+    <div class="hero-container">
+      <div id="heroCarousel" class="carousel slide carousel-fade" data-ride="carousel">
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+        <div class="carousel-inner" role="listbox">
+        {% for i in slider %}
+          {% if forloop.counter == 1 %}
+          <div class="carousel-item active" style="background-image: url({{i.slide_image.url}});background-size:contain 100%;">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown"><span>{{ i.image_name }}</span></h2>
+                <p class="animate__animated animate__fadeInUp">{{ i.image_information }}</p>
+                {% comment %} <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Read More</a> {% endcomment %}
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="carousel-item" style="background-image: url({{i.slide_image.url}});background-size:contain 100%;">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown"><span>{{ i.image_name }}</span></h2>
+                <p class="animate__animated animate__fadeInUp">{{ i.image_information }}</p>
+                {% comment %} <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Read More</a> {% endcomment %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        {% endfor %}
+
+        </div>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon icofont-thin-double-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon icofont-thin-double-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+
+      </div>
+    </div>
+  </section> 
+  <!-- End Hero -->
+
+<!--  start company list  -->
+  <main id="main">
+    <section id="team" class="team">
+      <div class="container">
+   
+        <form method="GET" >
+          <div class="input-field row" style="">
+              {% if query %}
+              <input class="col-md-10 text-center" style="border-radius:10px;border:1px solid #CDCDCD;" type="text" name="company_name" value="{{ query }}">
+              {% else %}
+              <input class="col-md-10 text-center" style="border-radius:10px;border:1px solid #CDCDCD;" type="text" name="company_name" value="{{ request.GET.q }}" placeholder="Search By Company Name or city name...">
+              {% endif %}
+              <div class="btn-group col-md-2 ">
+                <select name="company_category" id="company_category" class="form-control" style="width: 190px;">
+                    <option value="0">Select category</option>
+                  {% for i in category %} 
+                    <option value="{{i.id}}" {% if query_filter and query_filter == i.id %}  selected="selected" {% endif %}>{{i.name}}</option>
+                  {% endfor %}
+              </select>
+              <button class="btn btn-primary mx-1" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+        <br /><br />
+
+        <div class="section-title">
+          <h2>Company List</h2>
+        </div>
+        <div class="row">
+          {% if companies %}
+          {% for company in companies %}
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+              <a href="{% url 'products' company.slug %}">
+                <div class="member" style="width: 247.5px !important;">
+                  <div class="member-img text-center">
+                    <img src="{{company.company_photo.url}}" class="img-fluid" style="height: 200px !important;" alt="No company image">
+                  </div>
+                  <div class="member-info">
+                    <h4>{{ company.company_name }}</h4>
+                    <span>{{ company.company_short_info|slice:"0:25" }}...</span>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+          {% else %}
+            <div class="col-md-12"><p class="text-center">Company Not Found</p></div>
+          {% endif %}
+        </div>
+        {% if companies.has_other_pages %}
+          <nav aria-label="...">
+            <ul class="pagination">
+              {% if companies.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ companies.previous_page_number }}" >&laquo;</a></li>
+              {% else %}
+                <li class="page-item  disabled"><span class="page-link" style="background-color:white !important;color:#ec3237; !important;">&laquo;</span></li>
+              {% endif %}
+              {% for i in companies.paginator.page_range %}
+                {% if companies.number == i %}
+                  <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if companies.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ companies.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                <li class="page-item disabled"><span class="page-link" style="background-color:white !important;color:#ec3237; !important;">&raquo;</span></li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated %}
+        <div class="col-md-12 text-center">
+          <a href="{% url 'add_company' %}"><button type="button" class="btn btn-primary mx-2 my-2">Create New Company</button></a>
+        </div>
+      {% endif %}
+    </section><!-- End Team Section -->
+   
+  </main><!-- End #main -->
+{% endblock %}

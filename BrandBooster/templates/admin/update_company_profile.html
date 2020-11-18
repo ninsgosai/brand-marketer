@@ -1,0 +1,209 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Update Company Profile {% endblock %}
+{% block css %}
+
+  .list-group{
+  padding-top:10px;padding-right:20px;margin-bottom:-5px;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div  class="dataTables_wrapper form-inline dt-bootstrap">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="example" class="table table-striped table-bordered dataTable" style="width: 100%;" role="grid" aria-describedby="example_info">
+          <thead>
+            {% if messages %}
+              <ul class="messages my-5 text-center">
+                {% for message in messages %}
+                  <hr>
+                  <div class="alert {{ message.tags }}" role="alert">{{ message }}</div>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <tr role="row">
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Poster</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Name</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Image</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Short Info</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 50px;">Long Info</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 50px;">Domain</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 50px;">Date</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 50px;">Email</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 51px;">Action</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 51px;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in companydetail %}
+              <tr role="row" class="odd">
+                <td class="sorting_1">
+                  <div align="center" class="embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      {% if i.cover_image %}
+                        <img class="embed-responsive-item" src="{{ i.cover_image.url }}">
+                      {% endif %}
+                    </div>
+                  </div>
+                </td>
+                <td >{{i.company_name}}</td>
+                <td>
+                  <div align="center" class="embed-responsive embed-responsive-16by9">
+                    <div class="embed-responsive embed-responsive-16by9">
+                      {% if i.company_photo %}
+                        <img class="embed-responsive-item" src="{{ i.company_photo.url }}">
+                      {% endif %}
+                    </div>
+                  </div>
+                </td>
+                <td >{{i.company_short_info|slice:"0:45" }}</td>
+                <td >{{i.company_long_info|slice:"0:45" }}</td>
+                <td >{{i.company_domain }}</td>
+                <td>{{i.date_time_created }}</td>
+                <td>{{i.company_email}}</td>
+                <td>
+                  <a href="{% url 'edit_company_profile' pk=i.company_id  %}"> 
+                    <button type="button" class="btn btn-warning">Edit</button>
+                  </a>
+                  <a onclick="delCompanyProfile({{i.company_id}})" pk=i.company_id>
+                    <button class="btn btn-danger" style="float:right;border:1px dotted gray;">Delete</button>
+                  </a>
+                  <a href="{% url 'delete_company_profile' pk=i.company_id  %}" hidden id="del-mkt-{{i.company_id}}">
+                    <button class="btn btn-danger form-control">Delete</button>
+                  </a>
+                </td>
+                <td class="checks">
+                {% if i.company_status == True %}
+                  <button type="button" class="btn btn-danger status" id="{{i.company_id}}" style="border-radius:20px;">Deactivate</button>
+                  {% else %}
+                  <button type="button" class="btn btn-success status" id="{{i.company_id}}" style="border-radius:20px;">Activate</button>
+                   {% endif %} 
+                   
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>		
+          <tfoot>
+            <tr>
+              <th rowspan="1" colspan="1">Poster</th>
+              <th rowspan="1" colspan="1">Name</th>
+              <th rowspan="1" colspan="1">Image</th>
+              <th rowspan="1" colspan="1">Short Info</th>
+              <th rowspan="1" colspan="1">Long Info</th>
+              <th rowspan="1" colspan="1">Domain</th>
+              <th rowspan="1" colspan="1">Date</th>
+              <th rowspan="1" colspan="1">Email</th>
+              <th rowspan="1" colspan="1">Action</th>
+              <th rowspan="1" colspan="1">Status</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+    $('#example').DataTable();
+
+  });
+
+$(".status").click(function(){
+  if (confirm('Are you sure you want to change the status of company?')) 
+  {
+    $.ajax(
+    {
+        type:"POST",   
+        url: "{% url 'ChangeCompanyStatus' %}",
+        data:{
+            pk : this.id,
+            csrfmiddlewaretoken : '{{ csrf_token }}',
+        },
+        success: function(data) 
+        {
+            if ($("#" + data).attr("class") == 'btn btn-success status'){
+                $("#" + data).html('Deactivate');
+                $("#" + data).removeClass("btn btn-success status").addClass("btn btn-danger status");
+            }
+            else{
+                $("#" + data).html('Activate');
+                $("#" + data).removeClass("btn btn-danger status").addClass("btn btn-success status");
+            }
+        }
+    });
+  }
+});
+
+  function delCompanyProfile(data){
+    ans= confirm('Are you sure you want to DELETE This Company?');
+    if(ans){document.getElementById("del-mkt-" +data).click();}
+  }
+</script>
+{% endblock %}

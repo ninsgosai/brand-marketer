@@ -1,0 +1,105 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Add New Offers Photo {% endblock %}
+{% block css %}{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+    <div class="form-title">
+      <h4 style="text-align:center;">-: Add Offers Photo :-</h4>
+    </div>
+    <div class="form-body">
+      {% if messages %}
+        <ul class="messages my-5 text-center">
+          {% for message in messages %}
+            <hr>
+            <div class="alert {{ message.tags }}" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <form action="{% url 'add_profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group col-md-12">
+          <label for="sel1">Select Company:</label>
+          <select onchange="myColor()" class="form-control" id="sel1" name="sel1">
+            <option value="select" >Select</option>
+            {% for i in x %}
+              <option value="{{i.company_id}}">{{i.company_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="exampleInputFile">Image Name:</label>
+          <input type="text" name="imagename" class="form-control"  required/>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="fileUpload">Select Your Image</label>
+          <input type="file" id="fileUpload" name="companyimage" accept="image/*" required/>
+        </div>
+        <div id="image-holder" class="col-md-6 img-responsive">
+        </div>
+        <div class="form-group col-md-12">
+          <button type="submit" id="submit" class="btn btn-primary" style="margin-left:13px;">Add Photo</button>
+          <button type="reset" class="btn btn-danger" style="margin-left:13px;">Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#fileUpload").on('change', function() {
+      //Get count of selected files
+      var countFiles = $(this)[0].files.length;
+      var imgPath = $(this)[0].value;
+      var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+      var image_holder = $("#image-holder");
+      image_holder.empty();
+      if (extn == "gif" || extn == "mp4" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+        if (typeof(FileReader) != "undefined") {
+          //loop for each file selected for uploaded.
+          for (var i = 0; i < countFiles; i++)
+          {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              $("<img />", {
+                "src": e.target.result,
+                "class": "col-md-6 img-responsive"
+              }).appendTo(image_holder);
+            }
+            image_holder.show();
+            reader.readAsDataURL($(this)[0].files[i]);
+          }
+        } else {
+          alert("This browser does not support FileReader.");
+        }
+      } else {
+        alert("Pls select only images");
+      }
+    });
+  });
+</script>
+<script>
+  $("#submit").click(function () {
+    var books = $('#sel1');
+    if (books.val() === 'select') {
+      $('#sel1').focus();
+      document.getElementById('sel1').style.borderColor = "red"; 
+      return false;
+    }
+    else return;
+  });
+
+  function myColor(){
+  document.getElementById('sel1').style.borderColor="#CDCDCD";
+  }
+</script>
+{% endblock %}

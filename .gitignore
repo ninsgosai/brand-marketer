@@ -3,6 +3,17 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+BrandBooster/BrandBoosterUser/migrations
+BrandBooster/Company/migrations
+BrandBooster/review/migrations
+BrandBooster/media/image
+BrandBooster/media/profile_pics
+BrandBooster/media/videos
+BrandBooster/media/slider
+BrandBooster/media/audios
+BrandBooster/media/cover images
+
+
 # C extensions
 *.so
 

@@ -1,0 +1,721 @@
+1)	User Registration:
+    URL: brandbooster.co.in/api/Account_Create
+    Method: POST
+    Parameters: 
+        first_name: "shripal
+        last_name : "kothari"
+        mobile_number: "+911234561230"
+        email: "asdf@asdf.com"
+        password: "shripal"
+    Response: 
+        Success:
+        {
+            "error": "0",
+            "data": {
+                "user_id": 8,
+                "password": "pbkdf2_sha256$216000$phKM6G86xw70$tIb37QsmjaK94El0jPCsBL1tUtiSBceVRrovSq7LTeM=",
+                "email": "asdf@asdf.com",
+                "profile_photo": "/media/default.jpeg",
+                "username": "",
+                "first_name": "shripal",
+                "last_name": "kothari",
+                "mobile_number": "+911234561230",
+                "user_status": true,
+                "date_joined": "2020-10-08T11:12:35.368167Z",
+                "last_login": "2020-10-08T11:12:35.657184Z",
+                "is_admin": false,
+                "is_active": true,
+                "is_staff": false,
+                "is_superuser": false
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "User email may not be blank."}
+        {"error": 2, "message": "The email entered is not valid."}
+        {"error": 3, "message": "User with this email already exist."}
+        {"error": 4, "message": "User phone number may not be blank."}
+        {"error": 5, "message": "The phone number entered is not valid."}
+        {"error": 6, "message": "User with this phone number already exist."}
+        {"error": 7, "message": "Data is incorrect."}
+
+2)	User Login:
+    URL: brandbooster.co.in/api/login/
+    Method: POST
+    Parameters: 
+        email: "asdf@asdf.com"
+        password: "shripal"
+    Response: 
+        Success:
+        {
+            "error": "0",
+            "data": {
+                "user_id": 8,
+                "email": "asdf@asdf.com",
+                "first_name": "shripal",
+                "last_name": "kothari",
+                "mobile_number": "+911234561230",
+                "is_admin": false,
+                "is_active": true,
+                "date_joined": "2020-10-08T11:12:35.368167Z",
+                "profile_photo": "/media/default.jpeg"
+            }
+        }
+
+        Error:
+        {"error": "1", "message": "Invalid login credentials"}
+
+3)	User Details Edit:
+    URL: brandbooster.co.in/api/Account_Update/<USER_ID>/
+    Method: POST
+    Parameters: 
+        first_name: "kothari"
+        last_name : "shripal"
+        mobile_number: "+911234561230"
+        email: "asdf@asdf.com"
+    Response: 
+        Success:
+        {
+            "error": "0",
+            "data": {
+                "first_name": "kothari",
+                "last_name": "shripal",
+                "email": "asdf@asdf.com",
+                "mobile_number": "+911234561230"
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "User email may not be blank."}
+        {"error": 2, "message": "The email entered is not valid."}
+        {"error": 3, "message": "User with this email already exist."}
+        {"error": 4, "message": "User phone number may not be blank."}
+        {"error": 5, "message": "The phone number entered is not valid."}
+        {"error": 6, "message": "User with this phone number already exist."}
+        {"error": 7, "message": "Data is incorrect."}
+
+4)	User Delete:
+    URL: brandbooster.co.in/api/Account_Delete/<USER_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:{"error": "0","message ": "Data Deleted"}
+        Error:{"error": "1","message": "User does not exist."}
+
+5)	Company Create:
+    URL: brandbooster.co.in/api/Company_Info_Create/
+    Method: POST
+    Parameters: 
+        User_id: 3
+        company_name : "Lucson"
+        company_short_info: "Abcde"
+        company_long_info: "Efgh"
+        company_ceo: "shripal"
+        company_phone: "+919876542310"
+        company_email: "shripalkothari1234@gmail.com"
+        company_domain: "shripal.com"
+        company_photo: File - image.jpeg
+        company_video: File -  video.mp4
+
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "company_id": 4,
+                "company_name": "Lucson",
+                "company_short_info": "asdfa",
+                "company_long_info": "sdfasdf",
+                "company_ceo": "shripal",
+                "company_phone": "+919876543210",
+                "company_email": "shripalkothari1234@gmail.com",
+                "company_domain": "shripal.com",
+                "company_status": true,
+                "company_photo": "/media/profile_pics/Chrysanthemum.jpg",
+                "company_video": "/media/videos/2020-09-10_15-22-26.mp4",
+                "date_time_created": "2020-10-05T11:29:32.853389Z",
+                "date_time_modified": "2020-10-05T11:29:32.853389Z",
+                "user_id": 3
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "User does not exist."}
+        {"error": 2, "message": "Company name may not be blank."}
+        {"error": 3, "message": "Company short info name may not be blank."}
+        {"error": 4, "message": "Company long info name may not be blank."}
+        {"error": 5, "message": "Company CEO name may not be blank."}
+        {"error": 6, "message": "Company phone number may not be blank."}
+        {"error": 7, "message": "The phone number entered is not valid."}
+        {"error": 8, "message": "Company with this phone number already exist."}
+        {"error": 9, "message": "Company email may not be blank."}
+        {"error": 10, "message": "The email entered is not valid."}
+        {"error": 11, "message": "Company with this email already exist."}
+        {"error": 12, "message": "Company domain may not be blank."}
+        {"error": 13, "message": "Company with this domain already exist."}
+        {"error": 14, "message": "Data is incorrect."}
+
+6)  Company Detail:
+    URL: brandbooster.co.in/api/Company_Info_Detailed/<COMPANY_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "company_id": 3,
+                "company_name": "lucson",
+                "company_short_info": "asdf",
+                "company_long_info": "asdf",
+                "company_ceo": "lucson",
+                "company_phone": "+919876543012",
+                "company_email": "shripalkothari1@gmail.com",
+                "company_domain": "lucson",
+                "company_status": true,
+                "company_photo": "/media/default.jpeg",
+                "company_video": "/media/default.mp4",
+                "date_time_created": "2020-10-03T11:19:46.003308Z",
+                "date_time_modified": "2020-10-03T11:19:46.003338Z",
+                "user_id": 8
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "Company not available."}
+
+7)	Company Info Update:
+    URL: brandbooster.co.in/api/Company_Info_Update/<COMPANY_ID>/
+    Method: POST
+    Parameters: 
+        User_id: 3
+        company_name : "Lucson"
+        company_short_info: "Abcde"
+        company_long_info: "Efgh"
+        company_ceo: "shripal"
+        company_phone: "+919876542310"
+        company_email: "shripalkothari1234@gmail.com"
+        company_domain: "shripal.com"
+        company_photo: File - image.jpeg
+        company_video: File -  video.mp4
+
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "company_id": 4,
+                "company_name": "Lucson",
+                "company_short_info": "asdfa",
+                "company_long_info": "sdfasdf",
+                "company_ceo": "shripal",
+                "company_phone": "+919876543210",
+                "company_email": "shripalkothari1234@gmail.com",
+                "company_domain": "shripal.com",
+                "company_status": true,
+                "company_photo": "/media/profile_pics/Chrysanthemum.jpg",
+                "company_video": "/media/videos/2020-09-10_15-22-26.mp4",
+                "date_time_created": "2020-10-05T11:29:32.853389Z",
+                "date_time_modified": "2020-10-05T11:29:32.853389Z",
+                "user_id": 3
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "User does not exist."}
+        {"error": 2, "message": "Company does not exist."}
+        {"error": 3, "message": "Company name may not be blank."}
+        {"error": 4, "message": "Company short info name may not be blank."}
+        {"error": 5, "message": "Company long info name may not be blank."}
+        {"error": 6, "message": "Company CEO name may not be blank."}
+        {"error": 7, "message": "Company phone number may not be blank."}
+        {"error": 8, "message": "The phone number entered is not valid."}
+        {"error": 9, "message": "Company with this phone number already exist."}
+        {"error": 10, "message": "Company email may not be blank."}
+        {"error": 11, "message": "The email entered is not valid."}
+        {"error": 12, "message": "Company with this email already exist."}
+        {"error": 13, "message": "Company domain may not be blank."}
+        {"error": 14, "message": "Company with this domain already exist."}
+        {"error": 15, "message": "Data is incorrect."}
+
+8)  Company List:
+    URL: brandbooster.co.in/api/Company_Info_View/
+    Method: GET, POST
+    Parameters: None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": [
+                {
+                    "company_id": 3,
+                    "company_name": "lucson",
+                    "company_short_info": "asdf",
+                    "company_photo": "/media/default.jpeg"
+                }
+            ]
+        }
+
+        Error:
+        {"error": 1, "message": "No company available."}
+
+9)	Company Delete:
+    URL: brandbooster.co.in/api/Company_Info_Delete/<COMPANY_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:{"error": 0,"message ": "Data Deleted."}
+        Error:{"error": 1,"message": "Company does not exist."}
+
+10) Company Product Photos Create:
+    URL: brandbooster.co.in/api/Company_Product_Photos_Create/
+    Method: POST
+    Parameters: 
+        company_id : 2
+        company_prd_image : File - Jellyfish.jpg
+        image_name: "my Image"
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "company_product_photos_id": 5,
+                "company_prd_image": "/media/image/Jellyfish.jpg",
+                "image_name": "my Image",
+                "date_time_created": "2020-10-05T09:47:36.846573Z",
+                "date_time_modified": "2020-10-05T09:47:36.846573Z",
+                "company_id": 2
+            }
+        }
+
+        Error:
+        {"error": 1,"message": "Company does not exist."}
+        {"error": 2,"message": "The submitted data was not a file. Check the encoding type on the form."}
+
+11) Company Product Photos List:
+    URL: brandbooster.co.in/api/Company_Product_Photos_View/<COMPANY_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": [
+                {
+                    "company_product_photos_id": 1,
+                    "company_prd_image": "/media/image/Desert.jpg",
+                    "image_name": "desert",
+                    "date_time_created": "2020-10-05T05:23:29.190139Z",
+                    "date_time_modified": "2020-10-05T05:23:29.190139Z",
+                    "company_id": 2
+                },
+                {
+                    "company_product_photos_id": 2,
+                    "company_prd_image": "/media/image/Chrysanthemum.jpg",
+                    "image_name": "desert",
+                    "date_time_created": "2020-10-05T05:23:36.743571Z",
+                    "date_time_modified": "2020-10-05T05:23:36.743571Z",
+                    "company_id": 2
+                }
+            ]
+        }
+
+        Error:
+        {"error": 1, "message": "Product photos does not exist."}
+
+12) Company Product Photos Delete:
+    URL: brandbooster.co.in/api/Company_Product_Photos_View/<COMPANY_PRODUCT_PHOTO_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:{"error": 0, "message ": "Data Deleted."}
+        Error:{"error": 1, "message": "Product Photo does not exist."}
+
+13)	Company Videos Create:
+    URL: brandbooster.co.in/api/Company_videos_Create/
+    Method: POST
+    Parameters: 
+        company_id : 2
+        video_name : "my video"
+        video_link:"https://www.youtube.com/watch?v=B65zbFro2pU&list=PLgCYzUzKIBE9Pi8wtx8g55fExDAPXBsbV&index=4"
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "company_videos_id": 3,
+                "video_name": "my video",
+                "video_link": "https://www.youtube.com/watch?v=B65zbFro2pU&list=PLgCYzUzKIBE9Pi8wtx8g55fExDAPXBsbV&index=4",
+                "date_time_created": "2020-10-05T10:02:28.270560Z",
+                "date_time_modified": "2020-10-05T10:02:28.270560Z",
+                "company_id": 2
+            }
+        }
+
+        Error:
+        {"error": 1,"message": "Company does not exist."}
+        {"error": 2,"message": "Please fill all data."}
+
+14) Company Videos List:
+    URL: brandbooster.co.in/api/Company_videos _View/<COMPANY_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": [
+                {
+                    "company_videos_id": 1,
+                    "video_name": "asdfa",
+                    "video_link": "https://www.youtube.com/watch?v=B65zbFro2pU&list=PLgCYzUzKIBE9Pi8wtx8g55fExDAPXBsbV&index=4",
+                    "date_time_created": "2020-10-05T06:06:00.344057Z",
+                    "date_time_modified": "2020-10-05T06:06:00.344057Z",
+                    "company_id": 2
+                },
+                {
+                    "company_videos_id": 2,
+                    "video_name": "asdfa",
+                    "video_link": "https://www.youtube.com/watch?v=B65zbFro2pU&list=PLgCYzUzKIBE9Pi8wtx8g55fExDAPXBsbV&index=4",
+                    "date_time_created": "2020-10-05T06:09:50.927245Z",
+                    "date_time_modified": "2020-10-05T06:09:50.927245Z",
+                    "company_id": 2
+                }
+            ]
+        }
+
+        Error:
+        {"error": 1, "message": "Company videos does not exist."}
+
+15) Company Videos Delete:
+    URL: brandbooster.co.in/api/Company_videos_View/<COMPANY_VIDEO_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:{"error": 0,"message ": "Data Deleted."}
+        Error:{"error": 1,"message": "Video does not exist."}
+
+16)	Company Marketing Photos Create:
+    URL: brandbooster.co.in/api/Company_Marketing_Photos_Create/
+    Method: POST
+    Parameters: 
+        company_id : 2
+        company_mrk_image : File - image.jpeg
+        image_name: "my image"
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "company_Marketing_Photos_id": 3,
+                "company_mrk_image": "/media/image/Koala.jpg",
+                "image_name": "my image",
+                "date_time_created": "2020-10-05T10:14:27.008669Z",
+                "date_time_modified": "2020-10-05T10:14:27.008669Z",
+                "company_id": 2
+            }
+        }
+
+        Error:
+        {"error": 1,"message": "Company does not exist."}
+        {"error": 2,"message": "Please fill all data."}
+
+17) Company Marketing Photos List:
+    URL: brandbooster.co.in/api/Company_Marketing_Photos_View/<COMPANY_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": [
+                {
+                    "company_Marketing_Photos_id": 1,
+                    "company_mrk_image": "/media/image/Desert_AVeDgs0.jpg",
+                    "image_name": "desert",
+                    "date_time_created": "2020-10-05T06:38:25.262300Z",
+                    "date_time_modified": "2020-10-05T06:38:25.262300Z",
+                    "company_id": 2
+                },
+                {
+                    "company_Marketing_Photos_id": 2,
+                    "company_mrk_image": "/media/image/Tulips.jpg",
+                    "image_name": "desert",
+                    "date_time_created": "2020-10-05T06:38:31.177638Z",
+                    "date_time_modified": "2020-10-05T06:38:31.177638Z",
+                    "company_id": 2
+                }
+            ]
+        }
+
+        Error:
+        {"error": 1,"message": "Company marketing photos does not exist."}
+
+18) Company Marketing Photos Delete:
+    URL: brandbooster.co.in/api/Company_Marketing_Photos_View/<COMPANY_MARKETING_PHOTOS_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:{"error": 0,"message ": "Data Deleted."}
+        Error:{"error": 1,"message": "Company Marketing Photo does not exist."}
+
+19)	Company Review Create:
+    URL: brandbooster.co.in/api/review_create/
+    Method: POST
+    Parameters:  
+        user_id: 9
+        company_id: 14
+        review: "asdfasdf"
+        star: 3 (If this field is not given then the system will enter 0 stars by default.)
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "review_id": 5,
+                "review": "asdfasdf",
+                "star": 3,
+                "date_time_created": "2020-10-09T06:49:02.960901Z",
+                "date_time_modified": "2020-10-09T06:49:02.960901Z",
+                "user_id": 9,
+                "company_id": 14
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "User has already given review to this company"}
+        {"error": 2, "message": "User does not exist."}
+        {"error": 3, "message": "Company does not exist."}
+        {"error": 4, "message": "Review may not be blank."}
+        {"error": 5, "message": "Invalid star rating."}
+        {"error": 6, "message": "Data is incorrect."}
+
+20)	Company Reviews List Without User Logged in:
+    URL: brandbooster.co.in/api/review_company/<COMPANY_ID>/
+    Method: POST
+    Parameters: None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "average_rating": 2,
+            "user_data": null,
+            "data": [
+                {
+                    "review_id": 1,
+                    "review": "asdfasdfadf",
+                    "star": 3,
+                    "date_time_created": "2020-10-09T06:00:57.786879Z",
+                    "date_time_modified": "2020-10-09T06:00:57.787879Z",
+                    "user_id": 1,
+                    "company_id": 14
+                },
+                {
+                    "review_id": 2,
+                    "review": "asfasdf",
+                    "star": 1,
+                    "date_time_created": "2020-10-09T06:01:57.698305Z",
+                    "date_time_modified": "2020-10-09T06:01:57.698305Z",
+                    "user_id": 6,
+                    "company_id": 14
+                }
+            ]
+        }
+
+        Error:
+        {"error": 1, "message": "Company does not exist."}
+
+21)	Company Reviews List When User Logged in:
+    URL: brandbooster.co.in/api/review_company/<COMPANY_ID>/
+    Method: POST
+    Parameters: 
+        user_id: 1
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "average_rating": 4,
+            "user_data": {
+                "review_id": 3,
+                "review": "asdfasdfsadf",
+                "star": 5,
+                "date_time_created": "2020-10-09T06:12:53.536817Z",
+                "date_time_modified": "2020-10-09T06:12:53.536817Z",
+                "user_id": 1,
+                "company_id": 14
+            },
+            "data": [
+                {
+                    "review_id": 4,
+                    "review": "sdfasdf",
+                    "star": 3,
+                    "date_time_created": "2020-10-09T06:13:08.189655Z",
+                    "date_time_modified": "2020-10-09T06:13:08.189655Z",
+                    "user_id": 6,
+                    "company_id": 14
+                }
+            ]
+        }
+
+        Error:
+        {"error": 1, "message": "Company does not exist."}
+        {"error": 2, "message": "User does not exist."}
+
+22)	Company Review View Single:
+    URL: brandbooster.co.in/api/review_view/<REVIEW_ID>/
+    Method: POST
+    Parameters:  None
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "review_id": 4,
+                "review": "sdfasdf",
+                "star": 3,
+                "date_time_created": "2020-10-09T06:13:08.189655Z",
+                "date_time_modified": "2020-10-09T06:13:08.189655Z",
+                "user_id": 6,
+                "company_id": 14
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "Review does not exist."}
+
+23)	Company Review Update:
+    URL: brandbooster.co.in/api/review_update/<REVIEW_ID>/
+    Method: POST
+    Parameters:  
+        review: "asdfasdf"
+        star: 3 (If this field is blank then the system will not change star value by default.)
+    Response: 
+        Success:
+        {
+            "error": 0,
+            "data": {
+                "review_id": 3,
+                "review": "asdfasdf",
+                "star": 3,
+                "date_time_created": "2020-10-09T06:12:53.536817Z",
+                "date_time_modified": "2020-10-09T07:36:08.975540Z",
+                "user_id": 1,
+                "company_id": 14
+            }
+        }
+
+        Error:
+        {"error": 1, "message": "Review does not exist."}
+        {"error": 2, "message": "Review may not be blank."}
+        {"error": 3, "message": "Invalid star rating."}
+        {"error": 4, "message": "Data is incorrect."}
+
+24)	Company Review Delete:
+    URL: brandbooster.co.in/api/review_delete/<REVIEW_ID>/
+    Method: POST
+    Parameters:  None
+    Response: 
+        Success:{"error": 0, "message": "Review deleted"}
+        Error:{"error": 1, "message": "Review does not exist."}
+
+25)	User Like View:
+    URL: brandbooster.co.in/api/like_view/
+    Method: POST
+    Parameters:  
+        user_id: 1
+        company_id: 14
+    Response: {"error": 0, "message": 1}
+
+    Message = 0 when User has not liked or disliked this company
+    Message = 1 when User has liked this company
+    Message = 2 when User has disliked this company
+
+26)	User Like or Unlike a Company:
+    URL: brandbooster.co.in/api/like_user/
+    Method: POST
+    Parameters:  
+        user_id: 1
+        company_id: 14
+    Response: 
+        Success:
+        When user has already liked this company and wants to unlike.
+        {"error": 0,"message": 0}
+        When user has not liked this company or has already disliked this company and wants to like.
+        {"error": 0,"message": 1}
+
+        Error:
+        {"error": 1,"message": "User does not exist."}
+        {"error": 2,"message": "Company does not exist."}
+
+    Message = 0 when User has not liked or disliked this company
+    Message = 1 when User has liked this company
+    Message = 2 when User has disliked this company
+
+27)	User Dislike or Un-dislike a Company:
+    URL: brandbooster.co.in/api/dislike_user/
+    Method: POST
+    Parameters:  
+        user_id: 1
+        company_id: 14
+    Response: 
+        Success:
+        When user has already disliked this company and wants to un-dislike.
+        {"error": 0,"message": 0}
+        When user has not disliked this company or has already liked this company and wants to dislike.
+        {"error": 0,"message": 2}
+
+        Error:
+        {"error": 1,"message": "User does not exist."}
+        {"error": 2,"message": "Company does not exist."}
+
+    Message = 0 when User has not liked or disliked this company
+    Message = 1 when User has liked this company
+    Message = 2 when User has disliked this company
+28)	User Company List:
+    URL:  brandbooster.co.in/api/User_Company_List/<USER_ID>
+    Method: GET/POST
+    Parameters:  None
+    Response: 
+    Success:
+        {
+            "error": 0,
+            "data": [
+                {
+                    "company_id": 19,
+                    "company_name": "lucson",
+                    "company_short_info": "aaaaaa aaaaaaaa  aaaaaaa aaaa  aaaaa aaaaaaaa aaaaa",
+                    "company_long_info": "aaaaaaa aaaaaaaa a aaaaaaa aaaaaaa aaaa",
+                    "company_ceo": "lucson",
+                    "company_phone": "+911234561230",
+                    "company_email": "shripalkothari1@gmail.com",
+                    "company_domain": "https://www.lucsoninfotech.com/",
+                    "company_status": true,
+                    "company_photo": "/media/profile_pics/download.jpg",
+                    "cover_image": "/media/cover%20images/Desert.jpg",
+                    "date_time_created": "2020-10-15T12:19:46.490988Z",
+                    "date_time_modified": "2020-10-17T13:15:16.373649Z",
+                    "user_id": 1,
+                    "company_category": null
+                },
+                {
+                    "company_id": 20,
+                    "company_name": "lucson",
+                    "company_short_info": "lucson",
+                    "company_long_info": "lucson",
+                    "company_ceo": "lucson",
+                    "company_phone": "+911234561235",
+                    "company_email": "shripalkothari111@gmail.com",
+                    "company_domain": "https://www.google.com/",
+                    "company_status": true,
+                    "company_photo": "/media/profile_pics/Hydrangeas_MMyW7Oc.jpg",
+                    "cover_image": "/media/cover%20images/Koala.jpg",
+                    "date_time_created": "2020-10-15T15:02:52.964742Z",
+                    "date_time_modified": "2020-10-16T12:59:13.794284Z",
+                    "user_id": 1,
+                    "company_category": null
+                },
+            ]
+        }
+
+    Error:
+        {"error": 1, "data": [], "message": "Company not available."}

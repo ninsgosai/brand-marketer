@@ -1,0 +1,69 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Add New Video {% endblock %}
+{% block css %}{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+    <div class="form-title">
+      <h4 style="text-align:center;">-: Add New Video :-</h4>
+    </div>
+    <div class="form-body">
+      <form method="post" action="{% url 'add_video' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% if messages %}
+          <ul class="messages my-5 text-center">
+            {% for message in messages %}
+              <hr>
+              <div class="alert {{ message.tags }}" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <div class="form-group col-md-12">
+          <label for="sel1">Select Company:</label>
+          <select onchange="myColor()" class="form-control" id="sel1" name="sel1">
+            <option value="select" >Select</option>
+            {% for i in x %}
+              <option value="{{i.company_id}}">{{i.company_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="exampleInputThumbnail">Video Name:</label>
+          <input type="text" id="exampleInputThumbnail" name="videoimage" class="form-control" required/>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="imgFile">Video Link:</label>
+          <input type="text" name="myvideo" id="imgFile" class="form-control" required/>
+        </div>
+        <div class="form-group col-md-12">
+            <button type="submit" id="submit" class="btn btn-primary" >Add Video</button>
+            <button type="reset" class="btn btn-danger" >Clear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+  $("#submit").click(function () {
+    var books = $('#sel1');
+    if (books.val() === 'select') {
+      $('#sel1').focus();
+      document.getElementById('sel1').style.borderColor = "red"; 
+      return false;
+    }
+    else return;
+  });
+
+  function myColor(){
+  document.getElementById('sel1').style.borderColor="#CDCDCD";
+  }
+</script>
+{% endblock %}

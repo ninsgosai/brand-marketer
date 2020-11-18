@@ -1,0 +1,39 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Edit Audio {% endblock %}
+{% block css %}{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+    <div class="form-title">
+        <h4 style="text-align:center;">-: Edit Audio :-</h4>
+    </div>
+    <div class="form-body">
+      <form action="{% url 'edit_audio' pk=x.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group col-md-12">
+          <label for="inputVName">Audio Name:</label>
+          <input type="text" class="form-control" name="audioname" value="{{x.audio_name}}" required/>
+        </div>
+        <div class="form-group col-md-6">
+          <p for="fileUpload"><b>Select Your Audio:</b></p>
+          <input id="fileUpload" value="{{x.audio_file.url}}" name="companyaudio" class="file_multi_video vendor_logo_hide" accept="audio/*" type="file" >
+        </div>
+        <div class="form-group col-md-6">
+        <audio controls class="col-md-12 text-right">
+                    <source src="{{x.audio_file.url}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 20px;">
+            <button type="submit" class="btn btn-primary" style="margin-left:13px;">Update Audio</button>
+            <button type="reset" class="btn btn-danger" style="margin-left:13px;">Clear</button>
+         </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+{% endblock %}

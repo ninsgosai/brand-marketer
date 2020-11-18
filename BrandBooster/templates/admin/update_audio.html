@@ -1,0 +1,108 @@
+{% extends 'admin/basic.html' %}
+{% block title %}Update Audio {% endblock %}
+{% block css %}
+
+  .list-group{
+  padding-top:10px;padding-right:20px;margin-bottom:-5px;
+  }
+
+{% endblock %}
+{% block body %}
+{% load static %}
+<div id="page-wrapper">
+  <div  class="dataTables_wrapper form-inline dt-bootstrap">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="example" class="table table-striped table-bordered dataTable" 
+          style="width: 100%;" role="grid" aria-describedby="example_info">
+		      <thead>
+            {% if messages %}
+              <ul class="messages my-5 text-center">
+                {% for message in messages %}
+                  <hr>
+                  <div class="alert {{ message.tags }}" role="alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <tr role="row">
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" 
+                aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Company</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" 
+                aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Email</th>
+              <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" 
+                aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 71px;">Audio</th>
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" 
+                aria-label="Start date: activate to sort column ascending" style="width: 50px;">Audio Name</th> 
+              <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" 
+                aria-label="Salary: activate to sort column ascending" style="width: 51px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in x %}
+		          <tr role="row" class="odd">
+                <td>{{i.company.company_domain}}
+                <td>{{i.company.company_email}}</td>
+				<td class="sorting_1" width="200px">
+                <audio controls class="col-md-12 text-right">
+                    <source src="{{i.audio_file.url}}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <td>
+                    {{i.audio_name}}
+                </td>
+                <td>
+               
+                  <a href="{% url 'edit_audio' pk=i.id %}">
+                    <button type="button" class="btn btn-warning">Edit</button>
+                  </a>
+                  <a onclick="delPhoto({{i.id}})">
+                    <button class="btn btn-danger" style="float:right;border:1px dotted gray;">Delete</button>
+                  </a>
+                  <a href="{% url 'delete_audio' pk=i.id %}" 
+                    hidden id="del-photo-{{i.id}}">
+                    <button class="btn btn-danger form-control">Delete</button>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+		      <tfoot>
+            <tr>
+              <th rowspan="1" colspan="1">Company</th>
+              <th rowspan="1" colspan="1">Email</th>
+              <th rowspan="1" colspan="1">Audio</th>
+              <th rowspan="1" colspan="1">Audio Name</th>
+              <th rowspan="1" colspan="1">Action</th>
+            </tr>
+		      </tfoot>
+	      </table>
+      </div>
+    </div>
+	</div>
+</div>
+<link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+	$(document).ready(function() {
+    $('#example').DataTable();
+  });
+  $('#switch-modal').bootstrapSwitch();
+  $(function() {
+    $('#toggle-two').bootstrapToggle({
+      on: 'Enabled',
+      off: 'Disabled'
+    });
+  })
+  function delPhoto(data){
+    ans= confirm('Are you sure you want to DELETE This Video Profile?');
+    if(ans){
+      document.getElementById("del-photo-" +data).click();
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'admin/basic.html' %}
+{% load static %}
+
+{% block title %}Welcome to BrandBooster {% endblock %}
+{% block css %}
+.stats{
+text-align:center;
+}
+{% endblock %}
+{% block body %}
+		<div id="page-wrapper">
+			<div class="main-page">
+			<div class="col_3" >
+
+        	<div class="col-md-3 widget widget1">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-pie-chart icon-rounded"></i>
+                    <div class="stats">
+
+                      <h5><strong>{{a}}</strong></h5>
+
+                      <span>Total<br> User</span>
+                    </div>
+                </div>
+        	</div>
+
+        	<div class="col-md-3 widget widget1" >
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
+                    <div class="stats">
+
+                      <h5><strong>{{b}}</strong></h5>
+
+                      <span>Total<br> Company</span>
+                    </div>
+                </div>
+        	 </div>
+
+                <div class="col-md-3 widget widget1">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-pie-chart icon-rounded"></i>
+                    <div class="stats">
+
+                      <h5><strong>{{e}}</strong></h5>
+                      <span>Total<br>Image </span>
+                    </div>
+                </div>
+        	 </div>
+
+                <div class="col-md-3 widget widget1" >
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
+                    <div class="stats">
+
+                      <h5><strong>{{d}}</strong></h5>
+
+                      <span>Total<br> Videos</span>
+                    </div>
+                </div>
+        	 </div>
+
+                 <div class="col-md-3 widget widget1" style="margin-top:2px;" >
+                  <div class="r3_counter_box">
+                      <i class="pull-left fa fa-pie-chart icon-rounded"></i>
+                      <div class="stats">
+                        <h5><strong>{{c}}</strong></h5>
+                      <span>Total Offers Image</span>
+                    </div>
+                  </div>
+		</div>
+                 <div class="col-md-3 widget widget1 my-1" style="margin-top:2px;">
+                  <div class="r3_counter_box">
+                      <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
+                      <div class="stats">
+                        <h5><strong>{{f}}</strong></h5>
+                      <span>Total <br> Audio</span>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+{% endblock %}
+
+ {% block js %}
+{% endblock %}
